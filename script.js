@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Format: new Date("YYYY-MM-DDTHH:mm:ss").getTime()
-  const unlockDate = new Date("2025-12-31T03:55:00").getTime();
+  const unlockDate = new Date("2025-12-31T12:25:00").getTime();
   const lock = document.getElementById("lock");
   const content = document.getElementById("content");
   const countdownEl = document.getElementById("countdown");
@@ -330,5 +330,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
 
 
