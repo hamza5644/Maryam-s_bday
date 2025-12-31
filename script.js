@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Format: new Date("YYYY-MM-DDTHH:mm:ss").getTime()
-  const unlockDate = new Date("2025-12-31T12:25:00").getTime();
+  const unlockDate = new Date("2025-12-31T17:25:00").getTime();
   const lock = document.getElementById("lock");
   const content = document.getElementById("content");
   const countdownEl = document.getElementById("countdown");
@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const diff = unlockDate - now;
 
     if (diff <= 0) {
-      // Timer expired - show continue button and enable scrolling
+      // Timer expired - show continue button but keep scrolling disabled
       continueBtn.style.display = "block";
       continueBtn.classList.remove("hidden");
-      document.body.style.overflow = 'auto'; // Allow scrolling
+      document.body.style.overflow = 'hidden'; // Keep scrolling disabled
     } else {
       // Timer still running - show countdown and disable scrolling
       document.body.style.overflow = 'hidden'; // Prevent scrolling
@@ -26,10 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (diff <= 0) {
           clearInterval(intervalId);
-          // Show continue button and enable scrolling
+          // Show continue button but keep scrolling disabled
           continueBtn.style.display = "block";
           continueBtn.classList.remove("hidden");
-          document.body.style.overflow = 'auto'; // Allow scrolling
+          document.body.style.overflow = 'hidden'; // Keep scrolling disabled
           return;
         }
 
@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('birthdayProceeded', 'true');
       lock.style.display = "none";
       content.classList.remove("hidden");
+      document.body.style.overflow = 'auto'; // Enable scrolling after unlocking
       // Auto-play music when proceeding
       if (music) music.play().catch(() => {});
 
@@ -118,45 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const messagesPage = document.getElementById('messagesPage');
   const closeMessages = document.getElementById('closeMessages');
 
-  function launchConfetti() {
-    // Lightweight confetti: optimized elements for continuous performance, CSS-driven transform/opacity animation
-    const count = 10;
-    const colors = ['#ff69b4','#8a2be2','#1e90ff','#ffd166','#4dd2ff'];
-    const frag = document.createDocumentFragment();
-
-    for (let i = 0; i < count; i++) {
-      const c = document.createElement('div');
-      c.className = 'confetti';
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      const size = 6 + Math.random() * 12; // 6 - 18px
-      c.style.left = Math.random() * 100 + 'vw';
-      c.style.width = `${size}px`;
-      c.style.height = `${Math.max(4, size * 0.6)}px`;
-      c.style.background = color;
-      c.style.borderRadius = Math.random() > 0.6 ? '2px' : '50%';
-      c.style.zIndex = 1000;
-      c.style.pointerEvents = 'none';
-      c.style.willChange = 'transform, opacity';
-
-      // Very slow confetti fall: ~10s - 25s for extremely gentle descent
-      const dur = 10000 + Math.random() * 15000; // 10.0s - 25.0s
-      const delay = Math.random() * 600;
-      c.style.animation = `confettiFall ${dur}ms cubic-bezier(.2,.6,.2,1) ${delay}ms forwards`;
-
-      // Remove after animation ends
-      c.addEventListener('animationend', () => c.remove());
-      frag.appendChild(c);
-    }
-
-    document.body.appendChild(frag);
-  }
-
   if (openMessages && messagesPage) {
     openMessages.addEventListener('click', () => {
       messagesPage.classList.remove('hidden');
       // ensure element is rendered, then add active to trigger transition
       requestAnimationFrame(() => messagesPage.classList.add('active'));
-      launchConfetti();
     });
   }
 
@@ -172,32 +139,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Continuous confetti: spawn periodically across the site (skip if user prefers reduced motion)
-  try {
-    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!prefersReduced) {
-      // launch once on load for immediate effect
-      launchConfetti();
-      // then periodically every ~1.5s for very continuous effect (confetti elements themselves have varied durations of 10-25s)
-      const confettiInterval = setInterval(() => {
-        if (document.visibilityState === 'visible') {
-          launchConfetti();
-        }
-      }, 1500);
-
-      // clear interval on unload to be tidy
-      window.addEventListener('beforeunload', () => clearInterval(confettiInterval));
-    }
-  } catch (err) {
-    // fail silently if matchMedia not available
-    launchConfetti();
-  }
-
   /* MESSAGE NAVIGATION */
   const messages = [
-    "heyy maryam remember the day we first met? I clearly do and i still think about how so unexpectedly i found my TWIN.I still think how we clicked instantly anyways twin its your Birthday!!!you're officially an UNC congrats ig stay lit never sybau❤️‍🩹❤️‍🩹",
-    "Very rare to find people like you and i am very lucky and glad to have you,it feels good to wake up to your messages all those texts reels and calls make my day way better and remember i'll always be here listeing to your daily yapping or putting you to sleep",
-    "May all your dreams come true this year.This is my gift for you i hope you like it maybe one day i'll be able to gift you something in person and i hope we get to that point  as of now 12-31-2025 6:32 AM i am still on call with you but i am keeping this a secret from you because its your birthday surprise 🎉"
+    "Happy Birthday, Maryam. Here my gift to you on your special day. not much but i hope this makes you smile. I am very garetful to have someone like you, A wonderful personality and a kind heart rare to find these days. And now you're officially an UNC never sybau twin ❤️‍🩹",
+    "Life is soo surprising and unexpected there are so many things you wish for, people you wish you could meet things you could do but life has its own rhythm and timing you migh not always get what you want but i hope you get everything that's best for you and that makes you happy.",
+    "I wish this new year brings you endless joy, success and all the things you wish to achieve. You deserve all the love and happiness. Keep laughing and shining like you always have. Happy Birthday!-Hamza 12-31-2025 9:04 PM",
   ];
 
   let currentMessageIndex = 0;
@@ -205,15 +151,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const prevButton = document.getElementById('prevMessage');
   const nextButton = document.getElementById('nextMessage');
 
-  function showMessage(index) {
+function showMessage(index) {
     if (currentMessageEl) {
       currentMessageEl.classList.remove('show');
       setTimeout(() => {
         currentMessageEl.textContent = messages[index];
         currentMessageEl.classList.add('show');
-      }, 300); // Wait for fade out
+      }, 250); // Faster transition timing
     }
     updateArrows();
+    updateDots(index);
   }
 
   function updateArrows() {
@@ -222,6 +169,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (nextButton) {
       nextButton.style.display = currentMessageIndex === messages.length - 1 ? 'none' : 'block';
+    }
+  }
+
+  function updateDots(index) {
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach((dot, i) => {
+      if (i === index) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+
+  // Create progress dots
+  const progressDotsEl = document.getElementById('progressDots');
+  if (progressDotsEl) {
+    for (let i = 0; i < messages.length; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+      dot.addEventListener('click', () => {
+        currentMessageIndex = i;
+        showMessage(currentMessageIndex);
+      });
+      progressDotsEl.appendChild(dot);
     }
   }
 
@@ -247,9 +219,14 @@ document.addEventListener('DOMContentLoaded', () => {
   /* MOUSE HEART (throttled + capped) */
   (function() {
     let lastHeart = 0;
-    const minInterval = 120; // ms between hearts
-    const maxHearts = 20; // max hearts on screen
+    const isMobile = window.innerWidth <= 768;
+    const minInterval = isMobile ? 300 : 120; // slower on mobile
+    const maxHearts = isMobile ? 10 : 20; // fewer on mobile
     let activeHearts = 0;
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion || isMobile) return; // Skip hearts entirely on mobile or reduced motion
 
     document.addEventListener('mousemove', e => {
       const now = Date.now();
@@ -330,6 +307,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
-
 
 

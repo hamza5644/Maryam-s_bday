@@ -33,35 +33,44 @@ body {
 
 .blur {
   position: fixed;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
   filter: blur(100px);
   opacity: 0.7;
   z-index: -1;
   pointer-events: none;
-  will-change: transform, opacity;
+  will-change: auto;
+}
+
+/* Mobile optimizations for blur animations */
+@media (max-width: 768px) {
+  .blur {
+    width: 300px;
+    height: 300px;
+    filter: blur(60px);
+    animation: none;
+    opacity: 0.7;
+    will-change: auto;
+  }
 }
 
 .blue {
   background: radial-gradient(circle at 40% 50%, rgba(30,76,255,0.8), rgba(122,44,255,0.4), transparent);
   top: -100px;
   left: -100px;
-  animation: floatBlue 35s ease-in-out infinite;
 }
 
 .purple {
   background: radial-gradient(circle at 60% 40%, rgba(122,44,255,0.8), rgba(30,76,255,0.3), transparent);
   top: 30%;
   right: -150px;
-  animation: floatPurple 40s ease-in-out infinite;
 }
 
 .pink {
   background: radial-gradient(circle at 50% 60%, rgba(255,110,199,0.8), rgba(122,44,255,0.3), transparent);
   bottom: -120px;
   left: 20%;
-  animation: floatPink 38s ease-in-out infinite;
 }
 
 
@@ -78,6 +87,24 @@ body {
 @keyframes floatPink {
   0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.55; }
   50% { transform: translate(0, 0) scale(1.28); opacity: 0.96; }
+}
+
+/* Mobile-optimized blur animations - no scale transforms for better performance */
+@media (max-width: 768px) {
+  @keyframes floatBlue {
+    0%, 100% { transform: translate(0, 0); opacity: 0.55; }
+    50% { transform: translate(0, 0); opacity: 0.95; }
+  }
+
+  @keyframes floatPurple {
+    0%, 100% { transform: translate(0, 0); opacity: 0.55; }
+    50% { transform: translate(0, 0); opacity: 0.92; }
+  }
+
+  @keyframes floatPink {
+    0%, 100% { transform: translate(0, 0); opacity: 0.55; }
+    50% { transform: translate(0, 0); opacity: 0.96; }
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .blur { animation: none !important; }
@@ -140,11 +167,13 @@ body {
   position: relative;
   background: radial-gradient(circle at center, rgba(30,76,255,0.05), transparent 70%);
   box-shadow: inset 0 0 100px rgba(30,76,255,0.1);
+  will-change: transform, opacity;
 }
 .hero h1, .hero h2, .hero p, .hero button, .hero .scroll-hint {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 1.2s ease, transform 1.2s ease;
+  will-change: transform, opacity;
 }
 .hero.fade-in h1 {
   opacity: 1;
@@ -181,6 +210,48 @@ body {
   color: transparent;
   text-shadow: 0 0 20px rgba(77,210,255,0.5), 0 0 40px rgba(30,76,255,0.3);
   animation: neonShift 5s linear infinite;
+}
+
+/* Mobile optimizations for hero text animations */
+@media (max-width: 768px) {
+  .hero h1 {
+    animation: none !important;
+    background: none;
+    color: #4dd2ff;
+    text-shadow: 0 0 10px rgba(77,210,255,0.3);
+  }
+  .hero p {
+    animation: none;
+    background: none;
+    color: #add8ff;
+    text-shadow: 0 0 10px rgba(173,216,255,0.2);
+  }
+  .hero .name {
+    animation: none;
+    background: none;
+    color: #ff1493;
+    text-shadow: 0 0 20px rgba(255,20,147,0.8), 0 0 20px rgba(77,210,255,0.8);
+  }
+  .gallery-section h2 {
+    animation: none;
+    background: none;
+    color: #ff1493;
+    text-shadow: 0 0 20px rgba(255,20,147,0.8), 0 0 20px rgba(255,110,199,0.6);
+  }
+  .birthday-wish p {
+    animation: none;
+    text-shadow: 0 0 10px rgba(173,216,255,0.3);
+  }
+  .star {
+    animation: none;
+    text-shadow: 0 0 20px rgba(255,215,0,0.8), 0 0 20px rgba(255,215,0,0.6);
+  }
+  .arrow {
+    animation: none;
+  }
+  #openMessages {
+    animation: none;
+  }
 }
 .hero p {
   margin: 12px 0 30px 0;
@@ -241,6 +312,7 @@ body {
   transform: translateY(30px);
   transition: opacity 1.2s ease, transform 1.2s ease;
   background: radial-gradient(circle at center, rgba(30,76,255,0.03), transparent 70%);
+  will-change: transform, opacity;
 }
 .gallery-section.fade-in {
   opacity: 1;
@@ -284,7 +356,7 @@ body {
   min-height: 420px;
   overflow: hidden;
   position: relative;
-  box-shadow: 0 0 80px rgba(122,44,255,0.35), 0 0 50px rgba(30,76,255,0.25), inset 0 0 60px rgba(255,255,255,0.12);
+  box-shadow: 0 0 120px rgba(122,44,255,0.6), 0 0 80px rgba(30,76,255,0.4), inset 0 0 80px rgba(255,255,255,0.15), 0 0 40px rgba(77,210,255,0.8), 0 0 60px rgba(255,110,199,0.3);
   transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
   transition: transform 0.5s ease, box-shadow 0.3s ease;
   cursor: pointer;
@@ -357,6 +429,7 @@ body {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 1.2s ease, transform 1.2s ease;
+  will-change: transform, opacity;
 }
 .closing-card.fade-in .messages-launch {
   opacity: 1;
@@ -410,9 +483,6 @@ body {
 
 /* NAVIGATION ARROWS */
 .nav-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   background: rgba(255,255,255,0.2);
   backdrop-filter: blur(10px);
   border: none;
@@ -423,26 +493,26 @@ body {
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
-  z-index: 1001;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .nav-arrow:hover {
   background: rgba(255,255,255,0.3);
-  transform: translateY(-50%) scale(1.1);
+  transform: scale(1.1);
 }
 
 .left-arrow {
-  left: 20px;
+  margin-right: 20px;
 }
 
 .right-arrow {
-  right: 20px;
+  margin-left: 20px;
 }
 
 /* MESSAGE CONTAINER */
 #messageContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -451,29 +521,75 @@ body {
 
 .message-text {
   background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  padding: 30px;
-  border-radius: 20px;
-  max-width: 600px;
+  padding: 50px 40px;
+  border-radius: 30px;
+  max-width: 700px;
   font-family: 'Georgia', serif;
-  font-size: 1.4rem;
-  line-height: 1.7;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.9;
   text-align: center;
+  color: white;
+  border: 2px solid rgba(255,255,255,0.3);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(122,44,255,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+  text-shadow: 0 3px 6px rgba(0,0,0,0.4), 0 0 10px rgba(173,216,255,0.2);
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 1.2s ease, transform 1.2s ease;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-  background: linear-gradient(90deg, #add8ff, #7a2bff, #ff6ec7, #4dd2ff);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: textColorShift 4s ease-in-out infinite;
+  transform: translateX(-50px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  will-change: transform, opacity;
 }
 
 .message-text.show {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
+}
+
+/* NAVIGATION WRAPPER */
+.navigation-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  padding: 0 80px;
+}
+
+.left-arrow {
+  position: absolute;
+  left: 0;
+  margin-right: 0;
+}
+
+.right-arrow {
+  position: absolute;
+  right: 0;
+  margin-left: 0;
+}
+
+/* PROGRESS DOTS */
+#progressDots {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.dot.active {
+  background: #4dd2ff;
+  box-shadow: 0 0 10px rgba(77,210,255,0.5);
+}
+
+.dot:hover {
+  transform: scale(1.2);
 }
 
 
@@ -531,22 +647,7 @@ footer {
   }
 }
 
-/* Lightweight confetti styles */
-.confetti {
-  position: fixed;
-  top: -15vh; /* start a bit higher for longer fall */
-  pointer-events: none;
-  will-change: transform, opacity;
-  opacity: 1;
-  transform-origin: center;
-}
 
-@keyframes confettiFall {
-  to {
-    transform: translateY(130vh) rotate(900deg); /* travel further and spin more */
-    opacity: 0;
-  }
-}
 
 .heart {
   position: fixed;
@@ -583,6 +684,10 @@ footer {
   100% { background-position: 200% center; }
 }
 
+#openMessages {
+  will-change: background-position;
+}
+
 @keyframes textColorShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -616,6 +721,18 @@ footer {
   100% { background-position: 0% 50%; }
 }
 
+@keyframes photoGlow {
+  0% {
+    box-shadow: 0 0 80px rgba(122,44,255,0.35), 0 0 50px rgba(30,76,255,0.25), inset 0 0 60px rgba(255,255,255,0.12), 0 0 20px rgba(77,210,255,0.5);
+  }
+  50% {
+    box-shadow: 0 0 120px rgba(122,44,255,0.6), 0 0 80px rgba(30,76,255,0.4), inset 0 0 80px rgba(255,255,255,0.15), 0 0 40px rgba(77,210,255,0.8), 0 0 60px rgba(255,110,199,0.3);
+  }
+  100% {
+    box-shadow: 0 0 80px rgba(122,44,255,0.35), 0 0 50px rgba(30,76,255,0.25), inset 0 0 60px rgba(255,255,255,0.12), 0 0 20px rgba(77,210,255,0.5);
+  }
+}
+
 /* CLOSING CARD */
 .closing-card {
   background: rgba(255,255,255,0.1);
@@ -629,6 +746,7 @@ footer {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 1.2s ease, transform 1.2s ease;
+  will-change: transform, opacity;
 }
 .closing-card.fade-in {
   opacity: 1;
@@ -684,8 +802,49 @@ footer {
   padding: 80px 20px;
   transform: translateY(100%);
   transition: transform 0.6s ease;
+  will-change: transform;
 }
 
 #messagesPage.active {
   transform: translateY(0);
+}
+
+/* Mobile optimizations for messages layout */
+@media (max-width: 768px) {
+  #messagesPage {
+    padding: 60px 15px;
+    backdrop-filter: none;
+    background: #0a1432; /* Solid background for better mobile performance */
+  }
+
+  .message-text {
+    padding: 20px 15px;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 15px rgba(122,44,255,0.2); /* Simplified for mobile performance */
+    backdrop-filter: none; /* Remove blur for better mobile performance */
+    background: rgba(10,20,50,0.9); /* Solid background instead of blur */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Even faster transition for mobile */
+    will-change: transform, opacity; /* Optimize for GPU */
+  }
+
+  .nav-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .left-arrow {
+    left: 10px;
+    right: auto;
+  }
+
+  .right-arrow {
+    right: 10px;
+    left: auto;
+  }
+
+  .main-photo {
+    box-shadow: 0 0 60px rgba(122,44,255,0.4), 0 0 40px rgba(30,76,255,0.3); /* Simplified for mobile performance */
+  }
 }

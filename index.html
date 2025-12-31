@@ -4,15 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>For You 💙</title>
-<link rel="stylesheet" href="style.css">
-   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <!-- BLUR BACKGROUND -->
 <div class="blur blue"></div>
-<div class="blur purple"></div>
-<div class="blur pink"></div>
 
 <!-- COUNTDOWN LOCK -->
 <section id="lock">
@@ -33,20 +31,21 @@
     <span>Scroll Down</span>
     <div class="arrow">↓</div>
   </div>
-  <button id="musicToggle" style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; border: none; background: linear-gradient(90deg,#4dd2ff,#7a2bff); color: white; cursor: pointer; font-size: 1.5rem; z-index: 100; box-shadow: 0 4px 15px rgba(122,44,255,0.3); transition: all 0.3s ease;">🎵</button>
 </section>
+
+<button id="musicToggle" style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; border: none; background: linear-gradient(90deg,#4dd2ff,#7a2bff); color: white; cursor: pointer; font-size: 1.5rem; z-index: 100; box-shadow: 0 4px 15px rgba(122,44,255,0.3); transition: all 0.3s ease;">🎵</button>
 
 <!-- GALLERY -->
 <section class="gallery-section">
   <h2>A glimpse of you</h2>
 
   <div class="photo-layout">
-    <img src="images/4.png" class="main-photo">
+    <img src="images/4.png" class="main-photo" loading="lazy">
     <div class="side-photos">
-      <img src="images/1.png">
-      <img src="images/2.png">
-      <img src="images/3.png">
-      <img src="images/5.png">
+      <img src="images/1.png" loading="lazy">
+      <img src="images/2.png" loading="lazy">
+      <img src="images/3.png" loading="lazy">
+      <img src="images/5.png" loading="lazy">
     </div>
   </div>
 </section>
@@ -55,10 +54,13 @@
 <section class="messages">
   <div id="messagesPage" class="hidden">
     <button id="closeMessages">✕</button>
-    <button id="prevMessage" class="nav-arrow left-arrow">‹</button>
-    <button id="nextMessage" class="nav-arrow right-arrow">›</button>
     <div id="messageContainer">
       <div id="currentMessage" class="message-text"></div>
+      <div class="navigation-wrapper">
+        <button id="prevMessage" class="nav-arrow left-arrow">‹</button>
+        <div id="progressDots"></div>
+        <button id="nextMessage" class="nav-arrow right-arrow">›</button>
+      </div>
     </div>
   </div>
 </div>
@@ -81,7 +83,7 @@
   </footer>
 </section>
 
-<script src="script.js"></script>
+<script src="/script.js"></script>
 
 </div>
 
@@ -94,11 +96,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
