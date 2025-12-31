@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>For You 💙</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- BLUR BACKGROUND -->
+<div class="blur blue"></div>
+<div class="blur purple"></div>
+<div class="blur pink"></div>
+
+<!-- COUNTDOWN LOCK -->
+<section id="lock">
+  <h1>Something special is coming 💙</h1>
+  <p id="countdown"></p>
+  <button id="continueBtn" class="hidden" style="display: none; margin-top: 30px; padding: 14px 40px; border-radius: 30px; border: none; background: linear-gradient(90deg,#4dd2ff,#7a2bff); color: white; cursor: pointer; font-size: 1.1rem; box-shadow: 0 6px 18px rgba(122,44,255,0.14), 0 2px 8px rgba(77,210,255,0.08); transition: box-shadow 0.3s ease;">Continue 💙</button>
+</section>
+
+<!-- MAIN CONTENT -->
+<div id="content" class="hidden">
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Happy Birthday</h1>
+  <h2 class="name">Maryam</h2>
+  <p>I wish you the best for the 18th year of your life may you get all the love your heart can hold✨</p>
+  <div class="scroll-hint">
+    <span>Scroll Down</span>
+    <div class="arrow">↓</div>
+  </div>
+  <button id="musicToggle" style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; border: none; background: linear-gradient(90deg,#4dd2ff,#7a2bff); color: white; cursor: pointer; font-size: 1.5rem; z-index: 100; box-shadow: 0 4px 15px rgba(122,44,255,0.3); transition: all 0.3s ease;">🎵</button>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section">
+  <h2>A glimpse of you</h2>
+
+  <div class="photo-layout">
+    <img src="images/4.png" class="main-photo">
+    <div class="side-photos">
+      <img src="images/1.png">
+      <img src="images/2.png">
+      <img src="images/3.png">
+      <img src="images/5.png">
+    </div>
+  </div>
+</section>
+
+<!-- MESSAGES -->
+<section class="messages">
+  <div id="messagesPage" class="hidden">
+    <button id="closeMessages">✕</button>
+    <button id="prevMessage" class="nav-arrow left-arrow">‹</button>
+    <button id="nextMessage" class="nav-arrow right-arrow">›</button>
+    <div id="messageContainer">
+      <div id="currentMessage" class="message-text"></div>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<!-- CLOSING CARD -->
+<section class="closing-card">
+  <section class="messages-launch">
+    <p style="margin-bottom: 20px; font-size: 1.2rem; color: #add8ff; text-shadow: 0 0 10px rgba(173,216,255,0.3);">A few words from me for your birthday.</p>
+    <button id="openMessages">Open Messages 💌</button>
+  </section>
+
+  <section class="birthday-wish">
+    <p>Happy Birthday once again! 🎉</p>
+  </section>
+
+  <footer>
+    <p>Made with 💙 just for you—Hamza.</p>
+  </footer>
+</section>
+
+<script src="script.js"></script>
+
+</div>
+
+<!-- IMAGE OVERLAY -->
+<div id="overlay">
+  <img id="overlayImg">
+</div>
+
+<audio id="music" src="music.mp3"></audio>
+
+</body>
+</html>
