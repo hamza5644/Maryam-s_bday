@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Format: new Date("YYYY-MM-DDTHH:mm:ss").getTime()
-  const unlockDate = new Date("2025-12-31T03:15:00").getTime();
+  const unlockDate = new Date("2025-12-31T03:55:00").getTime();
   const lock = document.getElementById("lock");
   const content = document.getElementById("content");
   const countdownEl = document.getElementById("countdown");
@@ -13,34 +13,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const diff = unlockDate - now;
 
     if (diff <= 0) {
-      // Timer expired - check if user already proceeded
-      const userProceeded = localStorage.getItem('birthdayProceeded');
-      if (userProceeded === 'true') {
-        // User already clicked Continue on a previous visit
-        lock.style.display = "none";
-        content.classList.remove("hidden");
-        if (music) music.play().catch(() => {});
-        // Add fade-in to hero for returning users
-        const hero = document.querySelector('.hero');
-        if (hero) {
-          hero.classList.add('fade-in');
-        }
-      } else {
-        // Show Continue button
-        countdownEl.style.display = "none";
-        continueBtn.style.display = "inline-block";
-      }
+      // Timer expired - show continue button and enable scrolling
+      continueBtn.style.display = "block";
+      continueBtn.classList.remove("hidden");
+      document.body.style.overflow = 'auto'; // Allow scrolling
     } else {
-      // Timer still running - show countdown
+      // Timer still running - show countdown and disable scrolling
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
       const intervalId = setInterval(() => {
         const now = Date.now();
         const diff = unlockDate - now;
 
         if (diff <= 0) {
           clearInterval(intervalId);
-          // Show continue button instead of auto-proceeding
-          countdownEl.style.display = "none";
-          continueBtn.style.display = "inline-block";
+          // Show continue button and enable scrolling
+          continueBtn.style.display = "block";
+          continueBtn.classList.remove("hidden");
+          document.body.style.overflow = 'auto'; // Allow scrolling
           return;
         }
 
