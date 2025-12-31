@@ -1,9 +1,3 @@
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(r => {
-    r.forEach(reg => reg.unregister());
-  });
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   // Format: new Date("YYYY-MM-DDTHH:mm:ss").getTime()
   const unlockDate = new Date("2025-12-31T03:55:00").getTime();
@@ -336,6 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
 
 
 
